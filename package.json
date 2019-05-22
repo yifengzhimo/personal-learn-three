@@ -1,0 +1,30 @@
+{
+  "name": "personal-learn-three",
+  "version": "1.0.0",
+  "description": "Personal learn threejs",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yifengzhimo/personal-learn-three.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yifengzhimo/personal-learn-three/issues"
+  },
+  "homepage": "https://github.com/yifengzhimo/personal-learn-three#readme",
+  "devDependencies": {
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
+    "webpack": "^4.32.1",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "three": "^0.104.0"
+  }
+}
