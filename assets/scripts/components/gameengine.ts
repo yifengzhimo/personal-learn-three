@@ -1,10 +1,24 @@
+import * as OrbitControls from 'three-orbitcontrols';
 import * as THREE from 'three'
+// import {OrbitControls} from 'three-orbitcontrols-ts'
+// import OrbitControlsLibrary = require('three-orbit-controls');
+// import * as OrbitControlsFunction from 'threse-orbit-controls';
+
+// const OrbitControls = OrbitControlsFunction(THREE);
+
+// var OrbitControls = OrbitControlsLibrary(THREE);
+
+// import 'three/examples/js/controls/OrbitControls'
+
+// import THREE from '../3rd-party/three'
 
 export class GameEngine {
     private _canvas: HTMLDivElement;
     private _scene: THREE.Scene;
     private _camera: THREE.PerspectiveCamera;
     private _renderer: THREE.WebGLRenderer;
+    private _light: THREE.DirectionalLight;
+    private _controls: OrbitControls;
 
     private static _instance: GameEngine;
 
@@ -30,18 +44,46 @@ export class GameEngine {
         return this;
     }
 
+    public buildLight(): this {
+        this._light = new THREE.DirectionalLight(0xffeedd);
+        this._light.position.set(0, 0, 1).normalize();
+
+        if (this._scene)
+            this._scene.add(this._light);
+
+        return this;
+    }
+
     public buildCamera(): this {
         this._camera = new THREE.PerspectiveCamera(
-            45, window.innerWidth / window.innerHeight,
-            0.1, 1000
+            75, window.innerWidth / window.innerHeight,
+            1, 200000
         );
+        this._camera.position.z = 1000;
+
         return this;
     }
 
     public buildRenderer(): this {
         this._renderer = new THREE.WebGLRenderer();
         this._renderer.setClearColor(0xeeeeee);
+        this._renderer.setPixelRatio(window.devicePixelRatio);
         this._renderer.setSize(window.innerWidth, window.innerHeight);
+
+        this._canvas.append(this._renderer.domElement);
+        this._renderer.render(this._scene, this._camera);
+
+        return this;
+    }
+
+    public buildControls(): this {
+
+        this._controls = new OrbitControls(this._camera, this._renderer.domElement);
+        // this._controls.enabled = true;
+        // this._controls.maxDistance = 1500;
+        // this._controls.minDistance = 0;
+        // this._controls.maxPolarAngle = Math.PI * 2;
+
 
         return this;
     }
@@ -93,8 +135,8 @@ export class GameEngine {
         this._renderer.render(this._scene, this._camera);
     }
 
-    public renderScene(): void {
-        
+    public renderScene = () => {
+        // requestAnimationFrame(this.renderScene);
         this._renderer.render(this._scene, this._camera);
     }
 }
