@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import {GameEngine} from '../scripts/components/gameengine'
 import {ObjectUtils} from '../scripts/components/objectutls'
 
+import {JsonHelper} from '../scripts/io/jsonhelper'
+
 class Game {
 
     constructor() {
@@ -11,11 +13,12 @@ class Game {
             .buildScene()
             .buildCamera()
             .buildRenderer()
-            .setCamera(new THREE.Vector3(-30, 40, 30))
-            .openAxis(20)
-            .addObject3DGroup(ObjectUtils.rndGenerate())
+            // .setCamera(new THREE.Vector3(-30, 40, 30))
+            // .openAxis(20)
+            // .addObject3DGroup(ObjectUtils.rndGenerate())
             .end();
-            
+        JsonHelper.read("assets/data/filestreamservice.json"); 
+        
     }
 
     public run(): void {

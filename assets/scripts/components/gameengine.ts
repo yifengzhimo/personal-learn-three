@@ -40,7 +40,7 @@ export class GameEngine {
 
     public buildRenderer(): this {
         this._renderer = new THREE.WebGLRenderer();
-        // this._renderer.setClearColor(0x000000);
+        this._renderer.setClearColor(0xeeeeee);
         this._renderer.setSize(window.innerWidth, window.innerHeight);
 
         return this;
