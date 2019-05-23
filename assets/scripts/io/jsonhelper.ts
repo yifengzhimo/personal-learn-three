@@ -32,10 +32,14 @@ export class JsonHelper {
                         });
     
                         meshes.push(new Border3D(pnts).ToMesh());
-    
+                        
+                        
+
                         return true;
                     });
     
+
+                    
                 }
 
                 if (response.Basements.length > 0) {

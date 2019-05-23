@@ -46,7 +46,8 @@ export class Build3D {
             depth: 2990,
             bevelEnabled: false
         });
-        let mat = new THREE.MeshLambertMaterial( { color: 0xccffcc } );
+        let mat = new THREE.MeshLambertMaterial( { color: 0xccffcc, transparent: true, opacity: 0.5 } );
+        // let mat = new THREE.MeshLambertMaterial( { color: 0xff0000, transparent: true, opacity: 0.5 } );
 
         for(var i = 0; i < this._levels; i++) {
             var geoClone = geo.clone();

@@ -41,11 +41,13 @@ export class GameEngine {
     public buildScene(): this {
 
         this._scene = new THREE.Scene();
+        THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
         return this;
     }
 
     public buildLight(): this {
         this._light = new THREE.DirectionalLight(0xffeedd);
+        // this._light = new THREE.DirectionalLight(0x0c0c0c);
         this._light.position.set(0, 0, 1).normalize();
 
         if (this._scene)
@@ -57,7 +59,7 @@ export class GameEngine {
     public buildCamera(): this {
         this._camera = new THREE.PerspectiveCamera(
             75, window.innerWidth / window.innerHeight,
-            1, 200000
+            100, 8000000
         );
         this._camera.position.x = 1500000;
         this._camera.position.y = 1500000;
@@ -90,7 +92,7 @@ export class GameEngine {
         this._controls.enableDamping = true;
         this._controls.dampingFactor = 0.25;
         this._controls.enableZoom = true;
-        this._controls.maxDistance = 150000;
+        this._controls.maxDistance = 1500000;
         this._controls.minDistance = 0;
         this._controls.maxPolarAngle = Math.PI * 2;
 
