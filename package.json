@@ -19,13 +19,14 @@
   },
   "homepage": "https://github.com/yifengzhimo/personal-learn-three#readme",
   "devDependencies": {
-    "ts-loader": "^6.0.1",
-    "typescript": "^3.4.5",
-    "webpack": "^4.32.1",
-    "webpack-cli": "^3.3.2"
+    "ts-loader": "6.0.1",
+    "typescript": "3.4.5",
+    "webpack": "4.32.1",
+    "webpack-cli": "3.3.2"
   },
   "dependencies": {
-    "three": "^0.104.0",
-    "three-orbitcontrols": "^2.102.1"
+    "@kibou/three-orbitcontrols-ts": "0.2.8",
+    "three": "0.104.0",
+    "three-orbitcontrols": "2.102.1"
   }
 }

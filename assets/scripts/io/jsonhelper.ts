@@ -14,7 +14,7 @@ export class JsonHelper {
     public static read(jsonPath: string) {
         http.get(jsonPath).then((jsonStr) => {
 
-            let meshes: THREE.Mesh[] = [];
+            let meshes: THREE.Object3D[] = [];
 
             let response: DXFEntity = <DXFEntity>jsonStr;
 
@@ -76,12 +76,16 @@ export class JsonHelper {
     
             }
 
+            
+
             GameEngine.getInstance()
                 .addObject3DGroup(meshes)
                 .setCamera(new THREE.Vector3(
-                    response.CenterPoint.X,
-                    response.CenterPoint.Y,
-                    1000
+                    response.CenterPoint.X * 10,
+                    // 1500000,
+                    response.CenterPoint.Y * 10,
+                    // 1500000,
+                    100000000
                 ));
         });
     }

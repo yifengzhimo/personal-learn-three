@@ -9,11 +9,11 @@ export class Build3D {
     private _extrudePath: THREE.CatmullRomCurve3;
 
     constructor(pnts: THREE.Vector2[], name: string, levels: number) {
-        var pnt0 = pnts[0];
-        var pnte = pnts[pnts.length-1];
+        // var pnt0 = pnts[0];
+        // var pnte = pnts[pnts.length-1];
 
-        if (pnt0.sub(pnte).length() > 1)
-            pnts.push(pnt0);
+        // if (pnt0.sub(pnte).length() > 1)
+        //     pnts.push(pnt0);
         
         this._shape = new THREE.Shape(pnts);
         this._name = name;
@@ -28,7 +28,7 @@ export class Build3D {
         // this._extrudePath.closed = false;
     }
 
-    public ToMesh(): THREE.Mesh {
+    public ToMesh(): THREE.Object3D {
 
         var options = {
             curveSegments: 3,
@@ -41,14 +41,30 @@ export class Build3D {
             // extrudePath: this._extrudePath
         };
 
+        let object3d = new THREE.Object3D();
         let geo = new THREE.ExtrudeBufferGeometry(this._shape, {
-            depth: this._levels * 3000,
+            depth: 2990,
             bevelEnabled: false
         });
+        let mat = new THREE.MeshLambertMaterial( { color: 0xccffcc } );
 
-        let mat = new THREE.MeshLambertMaterial( { color: 0xb00000, wireframe: false } );
+        for(var i = 0; i < this._levels; i++) {
+            var geoClone = geo.clone();
+            var childMesh = new THREE.Mesh(geoClone, mat);
+            childMesh.translateZ(i * 3000);
 
-        return new THREE.Mesh(geo, mat);
+            object3d.add(childMesh);
+            
+        }
+
+        // let geo = new THREE.ExtrudeBufferGeometry(this._shape, {
+        //     depth: this._levels * 3000,
+        //     bevelEnabled: false
+        // });
+
+        
+
+        return object3d;
         // return null;
     }
 
