@@ -16,8 +16,9 @@ export class Border3D {
         
     }
 
-    public ToMesh(): THREE.Mesh {
+    public ToMesh(): THREE.Object3D {
 
+        let obj = new THREE.Object3D();
         let mat = new THREE.MeshLambertMaterial( { color: 0xFF0000, wireframe: false, transparent: false } );
 
         // this._points.forEach((v)=>{
@@ -34,10 +35,28 @@ export class Border3D {
         let geo = new THREE.TubeBufferGeometry(this._extrudePath, 
             this._points.length, 2500, 8, true);
         
-        // obj.add(new THREE.Mesh(geo, mat));
-        // return obj;
+        obj.add(new THREE.Mesh(geo, mat));
 
-        return new THREE.Mesh(geo, mat);
+
+        let groundmat = new THREE.MeshLambertMaterial( { color: 0x00ff00, transparent: true, opacity: 0.5 } );
+        let shape = new THREE.Shape(this._points.map((p)=>{
+            return new THREE.Vector2(p.x, p.y);
+        }));
+
+        let groundgeo = new THREE.ExtrudeBufferGeometry(shape, {
+            depth: 20,
+            bevelEnabled: false
+        });
+        
+        groundgeo.translate(0, 0, -10);
+
+        let ground = new THREE.Mesh(groundgeo, groundmat);
+
+        obj.add(ground);
+
+        return obj;
+
+        // return new THREE.Mesh(geo, mat);
     }
 
 }

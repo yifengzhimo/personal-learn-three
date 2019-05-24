@@ -1,12 +1,21 @@
 import * as THREE from 'three'
 
+// import {MeshText2D, textAlign, SpriteText2D} from 'three-text2d'
+// import * as DT from 'three.text'
+import {MeshText2D} from '../3rd-party/meshtext2d'
+import {textAlign} from '../3rd-party/utils'
+import {SpriteText2D} from '../3rd-party/spritetext2d'
+
 export class Build3D {
 
     private _shape: THREE.Shape;
     private _name: string;
     private _levels: number;
 
+    private _points: THREE.Vector2[];
     private _extrudePath: THREE.CatmullRomCurve3;
+
+    private static _index: number = 0;
 
     constructor(pnts: THREE.Vector2[], name: string, levels: number) {
         // var pnt0 = pnts[0];
@@ -19,6 +28,7 @@ export class Build3D {
         this._name = name;
         this._levels = levels;
 
+        this._points = pnts;
 
         let pps: THREE.Vector3[] = [];
         pps.push(new THREE.Vector3(0, 0, 0));
@@ -26,6 +36,8 @@ export class Build3D {
 
         this._extrudePath = new THREE.CatmullRomCurve3(pps, false, "catmullrom");
         // this._extrudePath.closed = false;
+
+        Build3D._index += 1;
     }
 
     public ToMesh(): THREE.Object3D {
@@ -63,10 +75,51 @@ export class Build3D {
         //     bevelEnabled: false
         // });
 
-        
+
+        // let text = new MeshText2D(this._name, {
+        //     align: textAlign.right, 
+        //     font: '100px Arial', 
+        //     fillStyle: '#000000', 
+        //     antialias: true 
+        // });
+
+        let text = new SpriteText2D(this._name + Build3D._index, {
+            align: textAlign.center, 
+            font: '100px Arial', 
+            fillStyle: '#000000', 
+            antialias: true 
+        });
+
+        let cx: number = 0;
+        let cy: number = 0;
+
+        this._points.forEach((p)=>{
+            cx += p.x;
+            cy += p.y;
+        })
+
+        cx /= this._points.length;
+        cy /= this._points.length;
+
+        text.position.x = cx;
+        text.position.y = cy;
+        text.position.z = (this._levels + 5) * 3000;
+
+        text.scale.set(100, 100, 100);
+
+        // let sphere = new THREE.SphereBufferGeometry(2500);
+        // let smesh = new THREE.Mesh(sphere, mat);
+        // smesh.position.copy(text.position);
+        // object3d.add(smesh);
+
+        object3d.add(text);
+
 
         return object3d;
         // return null;
     }
+
+
+   
 
 }

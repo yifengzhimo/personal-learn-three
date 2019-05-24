@@ -25,7 +25,6 @@ export class Basement3D {
 
         return new THREE.Mesh(geo, mat);
 
-        // return null;
     }
 
 }
